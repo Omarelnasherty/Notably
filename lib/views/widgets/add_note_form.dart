@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/cubit/add_notes/add_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/custom_bottom.dart';
@@ -34,7 +35,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
             onSaved: (value) {
               title = value;
             },
-            hintText: 'Title',
+            hint: 'Title',
           ),
           const SizedBox(
             height: 16,
@@ -43,7 +44,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
             onSaved: (value) {
               subTitle = value;
             },
-            hintText: 'Content',
+            hint: 'Content',
             maxLines: 4,
           ),
           const SizedBox(
@@ -58,10 +59,14 @@ class _AddNoteFormState extends State<AddNoteForm> {
                   onTap: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
+                      var currentTime = DateTime.now();
+                      var formatedCurrentTime =
+                          DateFormat.yMEd().format(currentTime);
+
                       var noteModel = NoteModel(
                           title: title!,
                           subTitle: subTitle!,
-                          data: DateTime.now().toString(),
+                          data: formatedCurrentTime,
                           color: Colors.blue.value);
                       BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
                     } else {

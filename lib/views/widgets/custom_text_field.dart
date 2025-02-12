@@ -3,18 +3,22 @@ import 'package:flutter/material.dart';
 class custom_text_field extends StatelessWidget {
   const custom_text_field({
     super.key,
-    required this.hintText,
+    required this.hint,
     this.maxLines = 1,
     this.onSaved,
+    this.onChanged,
   });
-  final String hintText;
+  final String hint;
   final int maxLines;
   final void Function(String?)? onSaved;
+
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: maxLines,
       onSaved: onSaved,
+      onChanged: onChanged,
       validator: (value) {
         if (value?.isEmpty ?? true) {
           return 'Field is Empty';
@@ -23,7 +27,7 @@ class custom_text_field extends StatelessWidget {
         }
       },
       decoration: InputDecoration(
-          hintText: hintText,
+          hintText: hint,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: Colors.white),

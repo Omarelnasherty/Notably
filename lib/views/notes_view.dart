@@ -12,6 +12,7 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
+  @override
   void initState() {
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     super.initState();
@@ -26,7 +27,7 @@ class _NotesViewState extends State<NotesView> {
           SizedBox(
             height: 30,
           ),
-          CostumAppBar(text: 'Notes', icon: Icons.search),
+          CostumAppBar(title: 'Notes', icon: Icons.search),
           Expanded(
             child: NotesList(),
           ),
